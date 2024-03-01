@@ -1,2 +1,2 @@
 # quick-server
-[**Shared Files**](/share/)
+[**shared files**](/share/)
