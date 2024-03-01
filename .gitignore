@@ -1,3 +1,5 @@
 .DS_Store
 index.html
 quick-server
+share/*
+index.md
