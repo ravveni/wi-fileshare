@@ -1,4 +1,4 @@
-module quick-server
+module github.com/ravveni/wi-filesharing
 
 go 1.21.7
 

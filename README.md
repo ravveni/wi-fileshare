@@ -1,9 +1,9 @@
-# quick-server
-spin up a quick LAN server with file sharing & streaming.
+# wi-filesharing
+spin up a quick LAN server with file sharing & streaming capabilities.
 ***
 changes made to `index.md` will appear after server restart.
 
-changes made within the `share/` directory are live.
+changes within the `share/` directory are live.
 
 ## requirements
 - golang [Download latest release](https://go.dev/dl/)
@@ -11,11 +11,10 @@ changes made within the `share/` directory are live.
 ## usage
 1. edit `index.md` however you want
 2. add any files to share locally to `share/`
-3. `go build && ./quick-server`
+3. `go build && ./wi-filesharing`
 4. ???
 5. profit
-
-re-building the program for subsequent uses isn't necessary unless changes were made in `go` code.
+6. `./wi-filesharing` for subsequent uses unless program changes were made
 
 ## tested streaming formats
 * audio
