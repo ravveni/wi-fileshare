@@ -1,4 +1,4 @@
-module github.com/ravveni/wi-filesharing
+module github.com/ravveni/wi-fileshare
 
 go 1.21.7
 
