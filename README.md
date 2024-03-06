@@ -11,10 +11,10 @@ changes within the `share/` directory are live.
 ## usage
 1. edit `index.md` however you want
 2. add any files to share locally to `share/`
-3. `go build && ./wi-fileshare`
+3. `go build && ./wi-fileshare PORT` - PORT (as int) optional, defaults to 8080
 4. ???
 5. profit
-6. `./wi-fileshare` for subsequent uses unless program changes were made
+6. `./wi-fileshare PORT` for subsequent uses unless program changes were made
 
 ## tested streaming formats
 * audio
