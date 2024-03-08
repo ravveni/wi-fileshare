@@ -15,7 +15,7 @@ changes made to both `index.md` and within the shared directory are live.
 `$ ./wi-fileshare`
 
 within the current working directory:
-- creates an `index.md` for landing page, skips if exists
+- creates an `index.md` for customizable landing page, skips if exists
 - creates a `share` directory for filesharing, skips if exists
 - converts `index.md` to `index.html`
 - serves on port 8080
