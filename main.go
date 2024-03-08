@@ -27,7 +27,7 @@ func main() {
 			} else if arg[0] == "-s" {
 				config.ShareDirectoryFilepath = arg[1]
 			} else {
-				fmt.Println("Invalid action, 'wi-fileshare --help' for usage guide.")
+				fmt.Println("invalid action: './wi-fileshare --help' for usage guide")
 				return
 			}
 		}

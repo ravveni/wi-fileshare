@@ -46,11 +46,11 @@ func validateConfig(config WFConfig) (WFConfig, error) {
 func validatePort(input string) (string, error) {
 	num, err := strconv.Atoi(input)
 	if err != nil {
-		return DefaultConfig.Port, fmt.Errorf("Invalid number: %v", err)
+		return DefaultConfig.Port, fmt.Errorf("invalid port: %v", err)
 	}
 
 	if num < 0 || num > 65536 {
-		return DefaultConfig.Port, fmt.Errorf("%d is not between 0 and 65536", num)
+		return DefaultConfig.Port, fmt.Errorf("invalid port: %d is not between 0 and 65536", num)
 	}
 
 	return input, nil
@@ -59,7 +59,7 @@ func validatePort(input string) (string, error) {
 func validateIndexFilepath(filePath string) (string, error) {
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
 		f, err := os.Create(filePath)
-		f.WriteString("# index\n[**shared files**](/share/)") // template index.md
+		f.WriteString("# index\n[**shared files**](/share/)") // template index.md contents
 		if err != nil {
 			return DefaultConfig.IndexFilepath, err
 		}
@@ -78,7 +78,7 @@ func validateShareDirectoryFilepath(filePath string) (string, error) {
 	}
 
 	if fileInfo, _ := os.Stat(filePath); fileInfo.IsDir() == false {
-		return DefaultConfig.ShareDirectoryFilepath, fmt.Errorf("%v is not a directory", filePath)
+		return DefaultConfig.ShareDirectoryFilepath, fmt.Errorf("invalid share directory: %v is not a directory", filePath)
 	}
 
 	return filePath, nil
