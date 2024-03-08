@@ -1,7 +1,7 @@
 package server
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -11,16 +11,14 @@ import (
 func (config WFConfig)renderIndex(w http.ResponseWriter, r *http.Request) {
 	markdown, err := os.ReadFile(config.IndexFilepath)
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 	html := blackfriday.Run(markdown)
 
 	err = os.WriteFile("index.html", html, os.ModePerm)
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 	http.ServeFile(w, r, "./index.html")
