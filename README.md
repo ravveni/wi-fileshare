@@ -8,7 +8,7 @@
 spin up a quick LAN server with file sharing & streaming capabilities.
 ```
 ***
-changes made to both `index.md` and within the shared directory are live.
+changes made to both `index.md` and within the `share/` directory are live.
 
 ## usage
 ### basic:

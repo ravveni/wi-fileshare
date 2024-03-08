@@ -77,8 +77,8 @@ func validateShareDirectoryFilepath(filePath string) (string, error) {
 		}
 	}
 
-	if fileInfo, err := os.Stat(filePath); fileInfo.IsDir() == false {
-		return DefaultConfig.ShareDirectoryFilepath, err
+	if fileInfo, _ := os.Stat(filePath); fileInfo.IsDir() == false {
+		return DefaultConfig.ShareDirectoryFilepath, fmt.Errorf("%v is not a directory", filePath)
 	}
 
 	return filePath, nil
