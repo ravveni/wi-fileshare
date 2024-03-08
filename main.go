@@ -2,69 +2,58 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
 	"os"
-	"strconv"
+	"strings"
 
-	"github.com/russross/blackfriday/v2"
+	"github.com/ravveni/wi-fileshare/server"
 )
 
-const defaultPort = 8080
-
-func renderIndex(w http.ResponseWriter, r *http.Request) {
-	markdown, err := os.ReadFile("./index.md")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	html := blackfriday.Run(markdown)
-
-	err = os.WriteFile("index.html", html, os.ModePerm)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	http.ServeFile(w, r, "./index.html")
-}
-
-func startServer(port int) {
-	serverPort := fmt.Sprint(":",port)
-	fs := http.FileServer(http.Dir("./share"))
-
-	http.HandleFunc("/", renderIndex)
-	http.Handle("/share/", http.StripPrefix("/share/", fs))
-
-	log.Println("Listening on ", serverPort)
-	err := http.ListenAndServe(serverPort, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func validateInput(input string) (int, error) {
-	num, err := strconv.Atoi(input)
-	if err != nil {
-        return -1, fmt.Errorf("Invalid number: %v", err)
-	}
-
-	if num < 0 || num > 65536 {
-		return -1, fmt.Errorf("%d is not between 0 and 65536", num)
-	}
-
-   return num, nil
-}
-
 func main() {
-	port := defaultPort
+	config := server.DefaultConfig
+
 	args := os.Args[1:]
 	if len(args) > 0 {
-		validatedPort, err := validateInput(args[0])
-		if err != nil {
-			log.Fatal(err)
+		if args[0] == "--help" || args[0] == "-h" || args[0] == "man" {
+			printUsageGuide()
+			return
 		}
-		port = validatedPort
+
+		for _, v := range args {
+			arg := strings.SplitN(v, "=", 2)
+			if arg[0] == "-p" {
+				config.Port = arg[1]
+			} else if arg[0] == "-i" {
+				config.IndexFilepath = arg[1]
+			} else if arg[0] == "-s" {
+				config.ShareDirectoryFilepath = arg[1]
+			} else {
+				fmt.Println("Invalid action, 'wi-fileshare --help' for usage guide.")
+				return
+			}
+		}
 	}
 
-	startServer(port)
+	fmt.Print(server.Start(config))
+}
+
+func printUsageGuide() {
+	fmt.Println("           _       _____ __          __")
+	fmt.Println(" _      __(_)     / __(_) /__  _____/ /_  ____ _________")
+	fmt.Println("| | /| / / /_____/ /_/ / / _ \\/ ___/ __ \\/ __ `/ ___/ _ \\")
+	fmt.Println("| |/ |/ / /_____/ __/ / /  __(__  ) / / / /_/ / /  /  __/")
+	fmt.Println("|__/|__/_/     /_/ /_/_/\\___/____/_/ /_/\\__,_/_/   \\___/")
+	fmt.Println("")
+	fmt.Println("# basic:")
+	fmt.Println("$ ./wi-fileshare")
+	fmt.Println("")
+	fmt.Println("within the current working directory:")
+	fmt.Println("- creates an `index.md` for landing page, skips if exists")
+	fmt.Println("- creates a `share` directory for filesharing, skips if exists")
+	fmt.Println("- converts `index.md` to `index.html`")
+	fmt.Println("- serves on port 8080")
+	fmt.Println("")
+	fmt.Println("# custom:")
+	fmt.Println("$ ./wi-fileshare -p=PORT -i=INDEX.MD-FILEPATH -s=SHARE-DIRECTORY-FILEPATH")
+	fmt.Println("")
+	fmt.Println("all arguments are optional, defaults same from basic usage")
 }

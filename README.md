@@ -1,24 +1,26 @@
-# wi-fileshare
+```
+           _       _____ __          __
+ _      __(_)     / __(_) /__  _____/ /_  ____ _________
+| | /| / / /_____/ /_/ / / _ \/ ___/ __ \/ __ `/ ___/ _ \
+| |/ |/ / /_____/ __/ / /  __(__  ) / / / /_/ / /  /  __/
+|__/|__/_/     /_/ /_/_/\___/____/_/ /_/\__,_/_/   \___/
+
 spin up a quick LAN server with file sharing & streaming capabilities.
+```
 ***
-changes made to `index.md` will appear after server restart.
-
-changes within the `share/` directory are live.
-
-## requirements
-- golang [Download latest release](https://go.dev/dl/)
+changes made to both `index.md` and within the shared directory are live.
 
 ## usage
-1. edit `index.md` however you want
-2. add any files to share locally to `share/`
-3. `go build && ./wi-fileshare PORT` - PORT (as int) optional, defaults to 8080
-4. ???
-5. profit
-6. `./wi-fileshare PORT` for subsequent uses unless program changes were made
+### basic:
+`$ ./wi-fileshare`
 
-## tested streaming formats
-* audio
-  - mp3
+within the current working directory:
+- creates an `index.md` for landing page, skips if exists
+- creates a `share` directory for filesharing, skips if exists
+- converts `index.md` to `index.html`
+- serves on port 8080
 
-* video
-  - mp4
+### custom:
+`$ ./wi-fileshare -p=PORT -i=INDEX.MD-FILEPATH -s=SHARE-DIRECTORY-FILEPATH`
+
+all arguments are optional, defaults same from basic usage
