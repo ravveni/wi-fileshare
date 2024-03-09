@@ -10,17 +10,9 @@ spin up a quick LAN server with file sharing & streaming capabilities.
 ***
 changes made to both `index.md` and within the `share/` directory are live.
 
-## usage
-### basic:
-`$ ./wi-fileshare`
-
-within the current working directory:
-- creates an `index.md` for customizable landing page, skips if exists
-- creates a `share/` directory for filesharing, skips if exists
-- converts `index.md` to `index.html`
-- serves on port `8080`
-
-### custom:
-`$ ./wi-fileshare -p=PORT -i=INDEX.MD-FILEPATH -s=SHARE-DIRECTORY-FILEPATH`
-
-all arguments are optional, defaults same from basic usage
+## initial usage (setup)
+- creates `wi-fileshare/` in home directory for the following:
+  - creates an `index.md` for customizable landing page
+  - creates a `share/` directory for filesharing
+- continually converts `index.md` into temp `index.html`
+- serves on port `1997`

@@ -15,11 +15,12 @@ func (config WFConfig)renderIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	html := blackfriday.Run(markdown)
+	tempHTMLPath := os.TempDir() + "index.html"
 
-	err = os.WriteFile("index.html", html, os.ModePerm)
+	err = os.WriteFile(tempHTMLPath, html, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	http.ServeFile(w, r, "./index.html")
+	http.ServeFile(w, r, tempHTMLPath)
 }
